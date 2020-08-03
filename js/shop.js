@@ -8,9 +8,28 @@ window.Shop = {
             URL: Shop.API_URL + "/products"
         }).done(function (response) {
             console.log(response);
-            // const responseJson = JSON.parse(response);
             Shop.displayProducts(response.content);
         })
+    },
+
+    addProductToCart: function (productId) {
+        let userId = 1;
+
+        let body = {
+            productIds: [
+                productId
+            ]
+        };
+
+        $.ajax({
+            method: "PUT",
+            url: Shop.API_URL + "/carts/" + userId,
+            contentType: "application/json",
+            data: JSON.stringify(body)
+        }).done(function () {
+            window.location.replace('cart.html');
+        });
+
     },
 
     getProductHtml: function (product) {
@@ -40,6 +59,18 @@ window.Shop = {
         products.forEach(product => productsHtml += Shop.getProductHtml(product));
 
         $('.single-shop-product .row:first-child').html(productsHtml);
+    },
+
+    bindEvents: function () {
+        $('.add_to_cart_button').delegate('.add_to_cart_button', 'click', function (event) {
+        event.preventDefault();
+
+        let productId = $ (this).data('product_id');
+
+        Shop.addProductToCart(productId);
+
+        });
+
     }
 };
 
