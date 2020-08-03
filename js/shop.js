@@ -62,7 +62,7 @@ window.Shop = {
     },
 
     bindEvents: function () {
-        $('.add_to_cart_button').delegate('.add_to_cart_button', 'click', function (event) {
+        $('.single-product-area').delegate('.add_to_cart_button', 'click', function (event) {
         event.preventDefault();
 
         let productId = $ (this).data('product_id');
