@@ -5,9 +5,9 @@ window.Shop = {
     getProducts: function () {
         $.ajax({
             method: "GET",
-            URL: Shop.API_URL + "/products"
+            url: Shop.API_URL + "/products"
         }).done(function (response) {
-            console.log(response);
+            // console.log(response);
             Shop.displayProducts(response.content);
         })
     },
@@ -16,9 +16,7 @@ window.Shop = {
         let userId = 1;
 
         let body = {
-            productIds: [
-                productId
-            ]
+            productsIds: [ productId ]
         };
 
         $.ajax({
@@ -58,14 +56,14 @@ window.Shop = {
 
         products.forEach(product => productsHtml += Shop.getProductHtml(product));
 
-        $('.single-shop-product .row:first-child').html(productsHtml);
+        $('.single-product-area .row:first-child').html(productsHtml);
     },
 
     bindEvents: function () {
         $('.single-product-area').delegate('.add_to_cart_button', 'click', function (event) {
         event.preventDefault();
 
-        let productId = $ (this).data('product_id');
+        let productId = $(this).data('product_id');
 
         Shop.addProductToCart(productId);
 
@@ -75,3 +73,4 @@ window.Shop = {
 };
 
 Shop.getProducts();
+Shop.bindEvents();

@@ -8,9 +8,9 @@ window.Cart = {
 
         $.ajax({
             method: "GET",
-            URL: Cart.API_URL + "/carts" + userId,
+            url: Cart.API_URL + "/carts/" + userId,
         }).done(function (response) {
-            console.log(response);
+            // console.log(response);
             Cart.displayProductsInCart(response.products);
         })
     },
@@ -50,7 +50,7 @@ window.Cart = {
     displayProductsInCart: function (products) {
         let productRows = '';
 
-        products.forEach(product => productRows += Cart.getProductHtml(product));
+        products.forEach(product => productRows += Cart.getProductInCartHtml(product));
 
         $('table.shop_table.cart tbody').html(productRows);
     },
